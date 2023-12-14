@@ -1,0 +1,67 @@
+version: '3.8'
+
+services:
+  flask-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '10000:10000'
+    environment:
+      - FLASK_APP=traductor.py
+      - FLASK_RUN_HOST=0.0.0.0  
+
+  translation-service-en-el:
+    image: tilde-intelcomp-en-el
+    ports:
+      - '10010:10000'
+
+  translation-service-en-es:
+    image: tilde-intelcomp-en-es
+    ports:
+      - '10020:10000'
+
+  translation-service-en-fr:
+    image: tilde-intelcomp-en-fr
+    ports:
+      - '10030:10000'
+
+  translation-service-en-sv:
+    image: tilde-intelcomp-en-sv
+    ports:
+      - '10040:10000'
+
+  translation-service-en-de:
+    image: tilde-intelcomp-en-de
+    ports:
+      - '10050:10000'
+
+  translation-service-de-en:
+    image: tilde-intelcomp-de-en
+    ports:
+      - '10060:10000'
+
+  translation-service-el-en:
+    image: tilde-intelcomp-el-en
+    ports:
+      - '10070:10000'
+  
+  translation-service-es-en:
+    image: tilde-intelcomp-es-en 
+    ports:
+      - '10080:10000'
+
+  translation-service-fr-en:
+    image: tilde-intelcomp-fr-en
+    ports:
+      - '10090:10000'
+
+  translation-service-sv-en:
+    image: tilde-intelcomp-sv-en
+    ports:
+      - '10100:10000'
+
+
+
+
+
