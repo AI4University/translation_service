@@ -7,10 +7,10 @@ import pandas as pd
 
 port = 10000
 
-url = "http://kumo01:{}/translate".format(port) # English to Spanish 
+url = "http://kumo01:{}/translate".format(port) 
 headers = {'content-type': 'application/json'}
 
-df = pd.read_parquet('translation_service/translate_publications/publications.parquet')
+df = pd.read_parquet('github/translation_service/translate_publications/publications.parquet')
 
 # Let us see what are the availables languages and how many documents of each language we have
 languages = df['lang']
@@ -18,10 +18,14 @@ all_lang = Counter(languages)
 for el, value in all_lang.items():
     print(f"Language: {el}, Documents: {value}")
 
-### PHASE 1 - We translate all English documents to Spanish
+# Let us check how many docuemnts are already translated
+translated = df.dropna(subset=['nmt_en'])
+print(f"Number of transalted documents: {translated.shape[0]}")
+
+### PHASE 1 - We translate all Spanish documents to English
 
 # Locate elements that need to be translated
-en_df = df[df["lang"] == "es"]
+en_df = df[df['lang'].isin(['es', 'fr', 'de'])]
 
 for iter, (idx, row) in enumerate(tqdm(en_df.iterrows(), desc="Progreso", unit="iter")):
     
@@ -53,7 +57,7 @@ for iter, (idx, row) in enumerate(tqdm(en_df.iterrows(), desc="Progreso", unit="
 
     if (iter+1) % 100 == 0:
         #Save after 1000 translations
-        df.to_parquet('translation_service/translate_publications/publications.parquet', index=False)
+        df.to_parquet('github/translation_service/translate_publications/publications.parquet', index=False)
 
 
-df.to_parquet('translation_service/translate_publications/publications.parquet', index=False)
+df.to_parquet('github/translation_service/translate_publications/publications.parquet', index=False)

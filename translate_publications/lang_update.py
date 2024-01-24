@@ -11,6 +11,6 @@ def detect_language(text):
     except:
         return 'unknown'
 
-df = pd.read_parquet('translation_service/translate_publications/publications.parquet')
+df = pd.read_parquet('github/translation_service/translate_publications/publications.parquet')
 df['lang'] = df.apply(lambda row: detect_language(row['Abstract']) if row['lang'] == 'unknown' else row['lang'], axis=1)
-df.to_parquet('translation_service/translate_publications/publications.parquet', index=False)
+df.to_parquet('github/translation_service/translate_publications/publications.parquet', index=False)
