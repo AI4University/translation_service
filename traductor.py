@@ -2,9 +2,25 @@ import json
 import requests
 import os
 from langdetect import detect
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_file
+from flask_swagger_ui import get_swaggerui_blueprint
 
 app = Flask(__name__)
+
+SWAGGER_URL = '/swagger'
+API_URL = '/swagger.yml'  # Esta es la ruta donde se sirve tu especificación de Swagger
+
+swaggerui_blueprint = get_swaggerui_blueprint(
+    SWAGGER_URL,
+    API_URL,
+    config={  # Opcional: Configura la interfaz de Swagger UI
+        'app_name': "Translation Service API"
+    }
+)
+
+app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
+
+
 @app.route('/translate', methods=['POST'])
 def translate():
     try:
@@ -25,6 +41,9 @@ def translate():
     except Exception as e:
         return jsonify({'error': f"Error translating text: {e}"}), 500
 
+@app.route('/swagger.yml')
+def swagger():
+    return send_file('swagger.yml', mimetype='text/yaml')
 
 
 def translate_text(text, port):

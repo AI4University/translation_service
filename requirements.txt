@@ -2,3 +2,4 @@ Flask
 langdetect
 requests
 tqdm
+flask_swagger_ui

@@ -1,0 +1,50 @@
+swagger: '2.0'
+info:
+  title: Translation Service API
+  description: API for translating text
+  version: '1.0'
+basePath: /api
+tags:
+  - name: Translation
+    description: Operations related to translation
+paths:
+  /translate:
+    post:
+      summary: Translate text
+      description: Translate text from one language to another.
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: Text to translate and target language
+          required: true
+          schema:
+            type: object
+            properties:
+              text:
+                type: string
+                description: Text to be translated.
+              to_lang:
+                type: string
+                description: Target language for translation.
+                enum: [en, es, fr, de, el, sv] 
+      responses:
+        200:
+          description: Translated text
+          schema:
+            type: object
+            properties:
+              translated_text:
+                type: string
+                description: Translated text.
+        400:
+          description: Bad request
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                description: Error message.

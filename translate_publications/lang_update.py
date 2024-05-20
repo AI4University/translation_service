@@ -11,6 +11,13 @@ def detect_language(text):
     except:
         return 'unknown'
 
-df = pd.read_parquet('github/translation_service/translate_publications/publications.parquet')
-df['lang'] = df.apply(lambda row: detect_language(row['Abstract']) if row['lang'] == 'unknown' else row['lang'], axis=1)
-df.to_parquet('github/translation_service/translate_publications/publications.parquet', index=False)
+INITIAL_RUN = True
+df = pd.read_parquet('data_ingest/match_semanticScholar_researchPortal/match_outputs/publications_translated.parquet')
+
+if INITIAL_RUN:
+    df['lang'] = 'unknown'
+    df['nmt_en'] = None
+    df = df.dropna(subset=['abstract'])
+
+df['lang'] = df.apply(lambda row: detect_language(row['abstract']) if row['lang'] == 'unknown' else row['lang'], axis=1)
+df.to_parquet('data_ingest/match_semanticScholar_researchPortal/match_outputs/publications_translated.parquet')
