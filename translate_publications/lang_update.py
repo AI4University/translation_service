@@ -12,7 +12,7 @@ def detect_language(text):
         return 'unknown'
 
 INITIAL_RUN = True
-df = pd.read_parquet('data_ingest/match_semanticScholar_researchPortal/match_outputs/publications_translated.parquet')
+df = pd.read_parquet('/Volumes/data_ml4ds/AI4U/Datasets/ResearchPortal/20240321/processed_parquets/publications_translated.parquet')
 
 if INITIAL_RUN:
     df['lang'] = 'unknown'
