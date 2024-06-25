@@ -1,4 +1,4 @@
-Application creation for translation of big datasets form the detected language to the desired one.
+### Application creation for translation of big datasets form the detected language to the desired one.
 - Check that the Docker destinated for translation are preloaded. In case not load them with:
   - docker load --input tilde-intelcomp-xx-xx.tar.gz   
 - Run the docker compose file using:
@@ -7,4 +7,4 @@ Application creation for translation of big datasets form the detected language 
   - curl -X POST -H "Content-Type: application/json" -d '{"text": "TEXT_TO_TRANSLATE", "to_lang": "LANGUAGE_CODE"}' http://kumo01:10000/translate
 
 > [!CAUTION]
-> Currently, the translation service is down. Try the translation pipelines (using Google Translate API) available in the [TranslateTecnoempleo](TranslateTecnoempleo/Traduccion.ipynb) and [TranslateResearchPortal](TranslateResearchPortal/TranslationKeywords.ipynb) folders.
+> Currently, the translation service is down. Alternatively, you can use the translation pipelines available in the [TranslateTecnoempleo](TranslateTecnoempleo/Traduccion.ipynb) and [TranslateResearchPortal](TranslateResearchPortal/TranslationKeywords.ipynb) folders. They apply Google Translate libraries and both are fully functional.
